@@ -7,8 +7,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout completo del código
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -20,7 +22,6 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          bundle install
           gem install bundler
           bundle install --jobs 4 --retry 3
 
@@ -32,6 +33,9 @@ jobs:
 
       - name: Regenerar binarios de Rails si faltan
         run: bundle exec rails app:update:bin
+
+      - name: Verificar archivos de prueba
+        run: ls -la test/
 
       - name: Set up database
         run: |
