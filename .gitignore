@@ -1,94 +1,25 @@
-# See https://help.github.com/articles/ignoring-files for more about ignoring files.
-
-# Ignore bundler config.
-/.bundle
-
-# Ignore logs and temp files.
+# Logs, temp y caché
 /log/*
 /tmp/*
+/storage/*
 !/log/.keep
 !/tmp/.keep
-
-# Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
-
-# Ignore storage files (uploaded files in development and SQLite databases).
-/storage/*
 !/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
-!/tmp/storage/.keep
 
-# Ignore compiled assets.
-/public/assets
-/public/packs
-/public/packs-test
-/public/uploads
-
-# Ignore node_modules and package manager files.
-/node_modules/
-/yarn-error.log
-/npm-debug.log
-/package-lock.json
-/yarn.lock
-
-# Ignore caches, coverage reports, and test-related files.
-/.byebug_history
-/.sass-cache
-/.coverage
-/coverage
-/spec/reports
-/test/tmp
-/test/version_tmp
-/capybara-*
-/selenium-*
-/.ruby-version
-/.rspec
-/.simplecov
-
-# Ignore SQLite database files.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/*.sqlite3-wal
-/db/*.sqlite3-shm
-/db/schema.rb
-/db/development.sqlite3
-/db/test.sqlite3
-/db/production.sqlite3
-/db/dump.sql
-
-# Ignore application secrets.
-/config/database.yml
-/config/secrets.yml
+# Archivos de configuración local
 /config/master.key
 /config/credentials.yml.enc
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/schema.rb
 
-# Ignore editor and OS-specific files.
-/.idea/
-/.vscode/
-/*.swp
-*.swo
-*~
-/.DS_Store
-/Thumbs.db
+# Node modules y Yarn
+/node_modules/
+/yarn-error.log
 
-# Ignore Spring and temporary Rails files.
-/spring/
-/tmp/
-/.pids
-.sass-cache
-.byebug_history
+# Bundler
+/.bundle/
+/vendor/bundle/
 
-# Ignore CI/CD and test-related files.
-/coverage/
-/test-results/
-/tmp/
-/log/
-/spec/tmp
-
-# Ignore gems and vendor dependencies.
-/vendor/bundle
-/.bundle
-/Gemfile.lock
+# Archivos de GitHub Actions (opcional)
+.github/
