@@ -1,29 +1,43 @@
-name: Workflows-Ruby
-on: [push]
-
+name: ruby on rails test
+on:
+  push:
+    branches:
+      - main
 jobs:
-  trabajo1:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2.6
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install  --jobs 4 --retry 3
-      
-    - name: Setup database
-      run: |
-        bin/rails db:create
-        bin/rails db:schema:load
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.6'
 
-    - name: Run tests
-      run: |
-        bin/rails test
+      - name: Verificar archivos antes de instalar dependencias
+        run: ls -la
+
+      - name: Instalar dependencias
+        run: |
+          bundle install
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Verificar archivos en `bin/`
+        run: ls -la bin/
+
+      - name: Dar permisos de ejecución a Rails
+        run: chmod +x bin/rails
+
+      - name: Regenerar binarios de Rails si faltan
+        run: bundle exec rails app:update:bin
+
+      - name: Set up database
+        run: |
+          bundle exec rails db:drop || true
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+
+      - name: Run tests
+        run: bundle exec rails test
