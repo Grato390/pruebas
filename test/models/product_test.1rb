@@ -1,0 +1,17 @@
+require "test_helper"
+
+class ProductTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+  test "debe rechazar un producto con precio negativo" do
+    product = Product.new(name: "Laptop", price: -10, description: "Computadora portátil")
+    assert_not product.valid?
+  end
+end
+
+test "vencido debe retornar correcto segun el valor de entrada" do
+  assert_equal "vencido", Product.vencido(0)
+  assert_equal "vigente", Product.vencido(1)
+  assert_equal "vigente", Product.vencido(100)
+end
