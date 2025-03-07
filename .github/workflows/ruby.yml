@@ -1,8 +1,10 @@
-name: ruby on rails test
+name: Ruby on Rails Test
+
 on:
   push:
     branches:
       - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -12,13 +14,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Verificar versión de Ruby
+        run: ruby -v
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.6'
-
-      - name: Verificar archivos antes de instalar dependencias
-        run: ls -la
 
       - name: Instalar dependencias
         run: |
@@ -31,17 +33,20 @@ jobs:
       - name: Dar permisos de ejecución a Rails
         run: chmod +x bin/rails
 
-      - name: Regenerar binarios de Rails si faltan
+      - name: Regenerar binarios de Rails
         run: bundle exec rails app:update:bin
 
-      - name: Verificar archivos de prueba
-        run: ls -la test/
+      - name: Limpiar caché de Zeitwerk
+        run: bundle exec rails zeitwerk:check
 
       - name: Set up database
         run: |
           bundle exec rails db:drop || true
           bundle exec rails db:create
           bundle exec rails db:migrate
+
+      - name: Actualizar dependencias antes de correr tests
+        run: bundle update
 
       - name: Run tests
         run: bundle exec rails test
